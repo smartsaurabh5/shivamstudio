@@ -308,12 +308,16 @@ class APIRequestHandler(BaseHTTPRequestHandler):
     def end_headers(self):
         origin = self.headers.get('Origin', '')
         allowed_origins = [
-            'https://bhumi-studio-app.vercel.app',
+            'https://shivamstudio-app.vercel.app',
             'https://shivamstudio.vercel.app',
+            'https://shivam-studio.vercel.app',
+            'https://shivamstudio-official.vercel.app',
+            'https://shivamstudio-live.vercel.app',
+            'https://bhumi-studio-app.vercel.app',
             'http://localhost:8000',
             'http://127.0.0.1:8000',
         ]
-        if origin in allowed_origins:
+        if origin in allowed_origins or ('shivamstudio' in origin and origin.endswith('.vercel.app')):
             self.send_header('Access-Control-Allow-Origin', origin)
         else:
             # Fallback: allow all (also handles Vercel preview URLs)
