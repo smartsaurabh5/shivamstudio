@@ -338,7 +338,7 @@ const Admin = {
             b.id, b.event_date, b.event_time, b.client_name, b.client_email, b.client_phone, b.service_name, b.package_name, b.price, b.status
         ]);
 
-        this.triggerCSVDownload("BhumiPhotography_Bookings.csv", headers, rows);
+        this.triggerCSVDownload("ShivamStudio_Bookings.csv", headers, rows);
     },
 
     /* --------------------------------------------------------------------------
@@ -443,7 +443,7 @@ const Admin = {
             e.created_at, e.client_name, e.client_email, e.client_phone, e.subject, e.message, e.status, e.notes || ""
         ]);
 
-        this.triggerCSVDownload("BhumiPhotography_Enquiries.csv", headers, rows);
+        this.triggerCSVDownload("ShivamStudio_Enquiries.csv", headers, rows);
     },
 
     /* --------------------------------------------------------------------------

@@ -148,9 +148,9 @@ def init_db():
         print("Seeding database with default parameters...")
         # Add admin
         admin_id = str(uuid.uuid4())
-        admin_pass = hash_password("admin123")
+        admin_pass = hash_password("admin@123")
         cursor.execute("INSERT INTO users (id, name, email, password_hash, role, phone) VALUES (?, ?, ?, ?, ?, ?)",
-                       (admin_id, "Studio Admin", "admin@bhumistudio.com", admin_pass, "admin", "+919876543210"))
+                       (admin_id, "Akhilesh Kumar Pal", "admin@shivamstudio.com", admin_pass, "admin", "+917307245252"))
         
         # Add default client
         client_id = str(uuid.uuid4())
@@ -159,11 +159,13 @@ def init_db():
                        (client_id, "Rahul Sharma", "client@gmail.com", client_pass, "customer", "+919876543211"))
 
         # Add default Settings
-        cursor.execute("INSERT INTO settings (key, value) VALUES (?, ?)", ("studio_name", "Bhumi Photography"))
-        cursor.execute("INSERT INTO settings (key, value) VALUES (?, ?)", ("contact_email", "bhumimovies66@gmail.com"))
-        cursor.execute("INSERT INTO settings (key, value) VALUES (?, ?)", ("contact_phone", "9336356173 - 70880641824"))
-        cursor.execute("INSERT INTO settings (key, value) VALUES (?, ?)", ("whatsapp", "917080641824"))
-        cursor.execute("INSERT INTO settings (key, value) VALUES (?, ?)", ("address", "Badlapur Jaunpur Near Saltanat bahadur Pg College"))
+        cursor.execute("INSERT INTO settings (key, value) VALUES (?, ?)", ("studio_name", "Shivam Studio and Photostate"))
+        cursor.execute("INSERT INTO settings (key, value) VALUES (?, ?)", ("contact_email", "admin@shivamstudio.com"))
+        cursor.execute("INSERT INTO settings (key, value) VALUES (?, ?)", ("contact_phone", "7307245252"))
+        cursor.execute("INSERT INTO settings (key, value) VALUES (?, ?)", ("whatsapp", "917307245252"))
+        cursor.execute("INSERT INTO settings (key, value) VALUES (?, ?)", ("address", "Near TD COLLEGE SOUTH, beside CYBER CRIME THANA POLICE LINE, Wazidpur, Jaunpur, Uttar Pradesh 222001"))
+        cursor.execute("INSERT INTO settings (key, value) VALUES (?, ?)", ("name", "Akhilesh Kumar Pal"))
+        cursor.execute("INSERT INTO settings (key, value) VALUES (?, ?)", ("owner_name", "Akhilesh Kumar Pal"))
         default_marquee_images = [
             "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=80",
             "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=600&q=80",
@@ -261,7 +263,7 @@ def init_db():
         
         # Add default Testimonials
         cursor.execute("INSERT INTO testimonials (id, client_name, rating, comment, service, avatar) VALUES (?, ?, ?, ?, ?, ?)",
-                       (str(uuid.uuid4()), "Priya & Amit", 5, "Bhumi Photography made our wedding look like a fairy tale. The cinematic trailer was incredibly shot, and the team was extremely professional!", "Wedding Shoot", ""))
+                       (str(uuid.uuid4()), "Priya & Amit", 5, "Shivam Studio and Photostate made our wedding look like a fairy tale. The cinematic trailer was incredibly shot, and the team was extremely professional!", "Wedding Shoot", ""))
         cursor.execute("INSERT INTO testimonials (id, client_name, rating, comment, service, avatar) VALUES (?, ?, ?, ?, ?, ?)",
                        (str(uuid.uuid4()), "Vikram Rathore", 5, "Extremely impressed by their product photography. They captured our brand aesthetics perfectly. Our sales have increased since using their visuals.", "Product Photography", ""))
         cursor.execute("INSERT INTO testimonials (id, client_name, rating, comment, service, avatar) VALUES (?, ?, ?, ?, ?, ?)",
@@ -296,6 +298,31 @@ def init_db():
 
         # Done seeding
         conn.commit()
+
+    # Always ensure admin user and Shivam Studio settings exist
+    admin_pass = hash_password("admin@123")
+    cursor.execute("SELECT id FROM users WHERE email = ?", ("admin@shivamstudio.com",))
+    existing_admin = cursor.fetchone()
+    if existing_admin:
+        cursor.execute("UPDATE users SET password_hash = ?, role = 'admin', name = 'Akhilesh Kumar Pal', phone = '7307245252' WHERE email = ?",
+                       (admin_pass, "admin@shivamstudio.com"))
+    else:
+        cursor.execute("INSERT INTO users (id, name, email, password_hash, role, phone) VALUES (?, ?, ?, ?, ?, ?)",
+                       (str(uuid.uuid4()), "Akhilesh Kumar Pal", "admin@shivamstudio.com", admin_pass, "admin", "7307245252"))
+
+    studio_settings = {
+        "studio_name": "Shivam Studio and Photostate",
+        "contact_email": "admin@shivamstudio.com",
+        "contact_phone": "7307245252",
+        "phone": "7307245252",
+        "whatsapp": "917307245252",
+        "address": "Near TD COLLEGE SOUTH, beside CYBER CRIME THANA POLICE LINE, Wazidpur, Jaunpur, Uttar Pradesh 222001",
+        "name": "Akhilesh Kumar Pal",
+        "owner_name": "Akhilesh Kumar Pal"
+    }
+    for k, v in studio_settings.items():
+        cursor.execute("INSERT INTO settings (key, value, updated_at) VALUES (?, ?, CURRENT_TIMESTAMP) ON CONFLICT(key) DO UPDATE SET value=excluded.value, updated_at=CURRENT_TIMESTAMP", (k, v))
+    conn.commit()
     conn.close()
 
 # Start database setup
@@ -1095,11 +1122,11 @@ class APIRequestHandler(BaseHTTPRequestHandler):
 def run(port=8000):
     server_address = ('', port)
     httpd = HTTPServer(server_address, APIRequestHandler)
-    print(f"Bhumi Photography Backend Server active at http://localhost:{port}")
+    print(f"Shivam Studio and Photostate Backend Server active at http://localhost:{port}")
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:
-        print("\nStopping Bhumi Photography server...")
+        print("\nStopping Shivam Studio and Photostate server...")
         httpd.server_close()
         sys.exit(0)
 

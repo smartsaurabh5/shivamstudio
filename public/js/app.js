@@ -272,10 +272,11 @@ const app = {
         if (!this.settings) this.settings = {};
         
         // Change footer and contact labels
-        const address = this.settings.address || "Badlapur Jaunpur Near Saltanat bahadur Pg College";
-        const email = this.settings.contact_email || "bhumimovies66@gmail.com";
-        const phone = this.settings.contact_phone || "9336356173 - 70880641824";
-        const studioName = this.settings.studio_name || "Bhumi Photography";
+        const address = this.settings.address || "Near TD COLLEGE SOUTH, beside CYBER CRIME THANA POLICE LINE, Wazidpur, Jaunpur, Uttar Pradesh 222001";
+        const email = this.settings.contact_email || "admin@shivamstudio.com";
+        const phone = this.settings.contact_phone || "7307245252";
+        const studioName = this.settings.studio_name || "Shivam Studio and Photostate";
+        const ownerName = this.settings.name || this.settings.owner_name || "Akhilesh Kumar Pal";
 
         const setVal = (id, val) => {
             const el = document.getElementById(id);
@@ -283,6 +284,7 @@ const app = {
         };
 
         try {
+            setVal("contact-lbl-owner", ownerName);
             setVal("contact-lbl-address", address);
             setVal("contact-lbl-phone", phone);
             setVal("contact-lbl-email", email);
@@ -296,8 +298,9 @@ const app = {
         try {
             // Update WhatsApp sticky button href link
             const whatsappBtn = document.getElementById("whatsapp-sticky-btn");
-            if (whatsappBtn && this.settings.whatsapp) {
-                whatsappBtn.href = `https://wa.me/${this.settings.whatsapp}?text=Hi%20${encodeURIComponent(studioName)},%20I%20am%20interested%20in%20booking%20a%20photography/videography%20session.`;
+            const whatsappNum = this.settings.whatsapp || "917307245252";
+            if (whatsappBtn) {
+                whatsappBtn.href = `https://wa.me/${whatsappNum}?text=Hi%20${encodeURIComponent(studioName)},%20I%20would%20like%20to%20inquire%20about%20your%20photography%20and%20photostate%20services.`;
             }
         } catch (e) {
             console.error("Failed to set whatsapp button", e);
@@ -763,7 +766,7 @@ const app = {
 
             const invoiceContent = `
 ========================================
-             BHUMI PHOTOGRAPHY
+      SHIVAM STUDIO AND PHOTOSTATE
      Timeless Stories, Cinematic Art
 ========================================
 Receipt Date: ${new Date().toLocaleDateString()}
@@ -783,15 +786,16 @@ Status: ${b.status.toUpperCase()}
 
 TOTAL AMOUNT CHARGED: INR ${b.price.toLocaleString()}
 
-Thank you for choosing Bhumi Photography!
-For inquiries, email bhumimovies66@gmail.com
+Thank you for choosing Shivam Studio and Photostate!
+Owner: Akhilesh Kumar Pal | Phone: 7307245252
+Address: Near TD COLLEGE SOUTH, beside CYBER CRIME THANA POLICE LINE, Jaunpur
 ========================================
             `;
 
             const blob = new Blob([invoiceContent], { type: "text/plain;charset=utf-8" });
             const link = document.createElement("a");
             link.href = URL.createObjectURL(blob);
-            link.download = `BhumiPhotography_Receipt_${b.id.substring(0,8)}.txt`;
+            link.download = `ShivamStudio_Receipt_${b.id.substring(0,8)}.txt`;
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);

@@ -1,6 +1,6 @@
-# Bhumi Photography - Full-Stack Photography & Videography Website
+# Shivam Studio and Photostate - Full-Stack Photography & Videography Website
 
-Bhumi Photography is a premium, responsive, and luxury-themed full-stack website designed for a modern photography and videography studio. It features an interactive single-page application (SPA) frontend, a SQLite database, and a zero-dependency Python backend server.
+Shivam Studio and Photostate (Owner: Akhilesh Kumar Pal) is a premium, responsive, and luxury-themed full-stack website designed for modern photography, videography, and photostate services in Jaunpur, Uttar Pradesh. It features an interactive single-page application (SPA) frontend, a SQLite database, and a zero-dependency Python backend server.
 
 ---
 
@@ -27,7 +27,7 @@ Bhumi Photography is a premium, responsive, and luxury-themed full-stack website
 ## Project Structure
 
 ```text
-e:\bhumistudio/
+e:\shivamstudio/
 ├── server.py                 # Custom Python server serving static files and API
 ├── database.db               # SQLite database (auto-generated on startup)
 ├── public/                   # Frontend assets
@@ -67,8 +67,8 @@ e:\bhumistudio/
 You can test roles with these seeded accounts:
 
 - **Admin Account**:
-  - **Email**: `admin@bhumistudio.com`
-  - **Password**: `admin123`
+  - **Email**: `admin@shivamstudio.com`
+  - **Password**: `admin@123`
   
 - **Customer Account**:
   - **Email**: `client@gmail.com`
