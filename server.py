@@ -308,6 +308,7 @@ class APIRequestHandler(BaseHTTPRequestHandler):
     def end_headers(self):
         origin = self.headers.get('Origin', '')
         allowed_origins = [
+            'https://bhumi-studio-app.vercel.app',
             'https://shivamstudio.vercel.app',
             'http://localhost:8000',
             'http://127.0.0.1:8000',
