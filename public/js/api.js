@@ -4,7 +4,7 @@
 
 const API = {
     // API endpoint helper
-    baseUrl: "", // Relative to current domain
+    baseUrl: (typeof window !== "undefined" && window.API_BASE_URL) ? window.API_BASE_URL : "", // Configurable via window.API_BASE_URL for cross-domain deployment
 
     getToken() {
         return localStorage.getItem("bhumi_auth_token");

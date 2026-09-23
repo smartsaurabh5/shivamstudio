@@ -306,7 +306,17 @@ class APIRequestHandler(BaseHTTPRequestHandler):
     
     # Enable CORS
     def end_headers(self):
-        self.send_header('Access-Control-Allow-Origin', '*')
+        origin = self.headers.get('Origin', '')
+        allowed_origins = [
+            'https://shivamstudio.vercel.app',
+            'http://localhost:8000',
+            'http://127.0.0.1:8000',
+        ]
+        if origin in allowed_origins:
+            self.send_header('Access-Control-Allow-Origin', origin)
+        else:
+            # Fallback: allow all (also handles Vercel preview URLs)
+            self.send_header('Access-Control-Allow-Origin', '*')
         self.send_header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
         self.send_header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
         self.send_header('Access-Control-Allow-Credentials', 'true')
